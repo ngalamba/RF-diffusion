@@ -1,0 +1,15 @@
+RF-diffusion Patch
+
+# Patch torch.load to handle PyTorch 2.6 changes (NG-Claude)
+import torch
+original_torch_load = torch.load
+
+def patched_torch_load(*args, **kwargs):
+    kwargs['weights_only'] = False
+    return original_torch_load(*args, **kwargs)
+
+torch.load = patched_torch_load
+
+# (NG-Claude End)
+
+if 'RFdiffusion' not in sys.path:
